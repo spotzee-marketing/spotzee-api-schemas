@@ -41,12 +41,16 @@ export const FieldError = z.object({
 
 export type FieldError = z.infer<typeof FieldError>
 
+// Aligned to runtime emission: `title`, `type`, `request_id` are optional
+// because handler paths that throw before requestIdMiddleware runs cannot
+// emit them, and `error` is the legacy human-readable mirror retained while
+// the in-product UI migrates to `message` (PRD §4.5 dual-emission window).
 export const ErrorResponse = z.object({
     status: z.literal('error').openapi({
         description: 'Constant marker indicating this payload is an error response.',
     }),
     code: ErrorCode,
-    title: z.string().openapi({
+    title: z.string().optional().openapi({
         description: 'Short, human-readable summary suitable for a heading. en-AU.',
         example: 'Resource missing',
     }),
@@ -54,11 +58,14 @@ export const ErrorResponse = z.object({
         description: 'Human-readable, en-AU explanation. May include identifiers.',
         example: 'Contact cnt_01HXY7Z9K8M5J2N4P6Q8R0S1T2 was not found in this project.',
     }),
-    type: z.string().url().openapi({
-        description: 'Documentation URL for this error class (RFC 7807).',
-        example: 'https://docs.spotzee.com/errors/resource_missing',
+    error: z.string().openapi({
+        description: 'Legacy human-readable mirror of `message`. Retained while in-product clients migrate; new integrations should read `message`.',
     }),
-    request_id: z.string().openapi({
+    type: z.string().url().optional().openapi({
+        description: 'Documentation URL for this error class (RFC 7807).',
+        example: 'https://docs.spotzee.com/main-api/errors#resource_missing',
+    }),
+    request_id: z.string().optional().openapi({
         description: 'Server-generated correlation ID. Echoed in the X-Request-ID response header.',
         example: 'req_01HXY7Z9K8M5J2N4P6Q8R0S1T2',
     }),
