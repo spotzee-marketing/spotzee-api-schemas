@@ -1,0 +1,1 @@
+{"version":3,"file":"channel.js","sourceRoot":"","sources":["../../../src/shared/channel.ts"],"names":[],"mappings":";;;AAAA,6CAAgC;AAEnB,QAAA,OAAO,GAAG,cAAC,CAAC,IAAI,CAAC;IAC1B,OAAO;IACP,KAAK;IACL,MAAM;IACN,SAAS;IACT,QAAQ;IACR,UAAU;CACb,CAAC,CAAC,OAAO,CAAC,SAAS,EAAE;IAClB,WAAW,EAAE,4DAA4D;IACzE,OAAO,EAAE,OAAO;CACnB,CAAC,CAAA"}
