@@ -1,4 +1,4 @@
-import { z } from './openapi'
+import { z } from './openapi.js'
 
 export const Channel = z.enum([
     'email',

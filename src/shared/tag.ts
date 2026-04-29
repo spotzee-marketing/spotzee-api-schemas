@@ -1,4 +1,4 @@
-import { z } from './openapi'
+import { z } from './openapi.js'
 
 export const Tag = z.object({
     name: z.string().min(1).max(64).openapi({

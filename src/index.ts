@@ -1,3 +1,3 @@
-export * as shared from './shared'
-export * as main from './main'
-export * as extended from './extended'
+export * as shared from './shared/index.js'
+export * as main from './main/index.js'
+export * as extended from './extended/index.js'

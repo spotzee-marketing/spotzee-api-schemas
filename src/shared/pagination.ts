@@ -1,4 +1,4 @@
-import { z } from './openapi'
+import { z } from './openapi.js'
 
 export const PageDirection = z.enum(['next', 'prev']).openapi('PageDirection', {
     description: 'Cursor traversal direction. `next` walks forward; `prev` walks backward.',

@@ -4,6 +4,19 @@ All notable changes to `@spotzee/api-schemas` are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning is [Semver](https://semver.org/) — breaking schema changes bump major.
 
+## [0.2.0] — 2026-04-29
+
+### Changed (build only — no schema changes)
+
+- **Dual-package** the build output (CJS + ESM) so the package can be consumed from both `apps/platform` (CommonJS) and `spotzee-cf-apis` (ESM/Cloudflare Workers) without re-export shims or local mirrors.
+- New build pipeline: `tsc -p tsconfig.esm.json` → `dist/esm/`, `tsc -p tsconfig.cjs.json` → `dist/cjs/`, plus a post-build step that writes `dist/{cjs,esm}/package.json` with the appropriate `"type"` field per the canonical Node dual-package recipe (https://nodejs.org/api/packages.html#dual-commonjses-module-packages).
+- `package.json` `exports` map now uses `import`/`require`/`types` conditions per export.
+- Source `.ts` files updated to use explicit `.js` import extensions (TypeScript-supported pattern; required for Node ESM resolution, harmless under CJS).
+
+### Notes
+
+- No schema changes from v0.1.0. Consumers can upgrade with `git submodule update --remote` and re-install.
+
 ## [0.1.0] — 2026-04-29
 
 ### Added

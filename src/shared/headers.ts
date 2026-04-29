@@ -1,4 +1,4 @@
-import { z } from './openapi'
+import { z } from './openapi.js'
 
 export const SPOTZEE_VERSION_DEFAULT = '2026-04-28'
 
