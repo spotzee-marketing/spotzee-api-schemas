@@ -14,7 +14,7 @@ Both repos pin to a tag; bumps are explicit PRs in each consumer.
 ```
 src/
 ├── shared/    Cross-cutting types: errors, pagination, IDs, channel, headers, tag
-├── main/      Main API resources (Contact, Campaign, Journey, ...)
+├── main/      Main API resources (User, Campaign, Journey, ...)
 └── extended/  Extended API resources (EmailHealth, DNS, SMS, AI, Quota)
 ```
 
