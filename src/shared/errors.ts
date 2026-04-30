@@ -3,6 +3,7 @@ import { z } from './openapi.js'
 export const ErrorCode = z.enum([
     'resource_missing',
     'resource_already_exists',
+    'state_conflict',
     'parameter_missing',
     'parameter_invalid_empty',
     'parameter_invalid_format',
@@ -11,11 +12,14 @@ export const ErrorCode = z.enum([
     'authentication_required',
     'permission_denied',
     'idempotency_key_mismatch',
+    'idempotency_key_invalid',
+    'idempotency_in_progress',
     'rate_limited',
     'version_unsupported',
     'version_required',
     'webhook_signature_invalid',
     'quota_exceeded',
+    'service_unavailable',
     'internal_error',
 ]).openapi('ErrorCode', {
     description: 'Stable, machine-readable error code. Safe to switch on; never localised.',
