@@ -1,7 +1,7 @@
 import { z } from './openapi.js'
 
 export const ID_PREFIXES = {
-    contact: 'cnt',
+    user: 'usr',
     segment: 'seg',
     campaign: 'cmp',
     journey: 'jrn',
@@ -29,7 +29,7 @@ const buildIdSchema = (prefix: IdPrefix, exampleSuffix = '01HXY7Z9K8M5J2N4P6Q8R0
             example: `${prefix}_${exampleSuffix}`,
         })
 
-export const ContactId = buildIdSchema(ID_PREFIXES.contact).openapi('ContactId')
+export const UserId = buildIdSchema(ID_PREFIXES.user).openapi('UserId')
 export const SegmentId = buildIdSchema(ID_PREFIXES.segment).openapi('SegmentId')
 export const CampaignId = buildIdSchema(ID_PREFIXES.campaign).openapi('CampaignId')
 export const JourneyId = buildIdSchema(ID_PREFIXES.journey).openapi('JourneyId')
@@ -44,7 +44,7 @@ export const WebhookEndpointId = buildIdSchema(ID_PREFIXES.webhookEndpoint).open
 export const SubscriptionId = buildIdSchema(ID_PREFIXES.subscription).openapi('SubscriptionId')
 export const RequestId = buildIdSchema(ID_PREFIXES.request).openapi('RequestId')
 
-export type ContactId = z.infer<typeof ContactId>
+export type UserId = z.infer<typeof UserId>
 export type SegmentId = z.infer<typeof SegmentId>
 export type CampaignId = z.infer<typeof CampaignId>
 export type JourneyId = z.infer<typeof JourneyId>

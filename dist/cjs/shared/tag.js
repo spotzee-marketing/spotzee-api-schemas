@@ -4,11 +4,11 @@ exports.TagName = exports.Tag = void 0;
 const openapi_js_1 = require("./openapi.js");
 exports.Tag = openapi_js_1.z.object({
     name: openapi_js_1.z.string().min(1).max(64).openapi({
-        description: 'Tag name. Used as a stable label across contacts, segments, lists, and templates.',
+        description: 'Tag name. Used as a stable label across users, segments, lists, and templates.',
         example: 'vip',
     }),
 }).openapi('Tag', {
-    description: 'A simple label that can be applied to contacts, segments, lists, and templates.',
+    description: 'A simple label that can be applied to users, segments, lists, and templates.',
 });
 exports.TagName = openapi_js_1.z.string().min(1).max(64).openapi('TagName', {
     description: 'Lowercase, hyphenated label. Stable across resources.',

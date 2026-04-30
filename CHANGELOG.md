@@ -34,7 +34,7 @@ Versioning is [Semver](https://semver.org/) — breaking schema changes bump maj
 
 - Initial scaffold of the shared schema package.
 - `shared/openapi.ts` — Zod instance pre-extended with `extendZodWithOpenApi`.
-- `shared/ids.ts` — prefixed identifier schemas (`cnt_`, `seg_`, `cmp_`, `jrn_`, `tpl_`, `lst_`, `evt_`, `tag_`, `prj_`, `org_`, `key_`, `whk_`, `sub_`, `req_`).
+- `shared/ids.ts` — prefixed identifier schemas (`usr_`, `seg_`, `cmp_`, `jrn_`, `tpl_`, `lst_`, `evt_`, `tag_`, `prj_`, `org_`, `key_`, `whk_`, `sub_`, `req_`).
 - `shared/channel.ts` — `Channel` enum (`email`, `sms`, `push`, `webhook`, `in_app`, `whatsapp`).
 - `shared/errors.ts` — RFC 7807 + Stripe-style envelope (`ErrorResponse`, `FieldError`, `ErrorCode`).
 - `shared/pagination.ts` — `PaginationQuery` and `paginationResponse(item, name)` helper.

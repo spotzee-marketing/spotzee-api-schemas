@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RequestId = exports.SubscriptionId = exports.WebhookEndpointId = exports.ApiKeyId = exports.OrganisationId = exports.ProjectId = exports.TagId = exports.EventId = exports.ListId = exports.TemplateId = exports.JourneyId = exports.CampaignId = exports.SegmentId = exports.ContactId = exports.ID_PREFIXES = void 0;
+exports.RequestId = exports.SubscriptionId = exports.WebhookEndpointId = exports.ApiKeyId = exports.OrganisationId = exports.ProjectId = exports.TagId = exports.EventId = exports.ListId = exports.TemplateId = exports.JourneyId = exports.CampaignId = exports.SegmentId = exports.UserId = exports.ID_PREFIXES = void 0;
 const openapi_js_1 = require("./openapi.js");
 exports.ID_PREFIXES = {
-    contact: 'cnt',
+    user: 'usr',
     segment: 'seg',
     campaign: 'cmp',
     journey: 'jrn',
@@ -26,7 +26,7 @@ const buildIdSchema = (prefix, exampleSuffix = '01HXY7Z9K8M5J2N4P6Q8R0S1T2') => 
     description: `Stable, opaque identifier prefixed with \`${prefix}_\`.`,
     example: `${prefix}_${exampleSuffix}`,
 });
-exports.ContactId = buildIdSchema(exports.ID_PREFIXES.contact).openapi('ContactId');
+exports.UserId = buildIdSchema(exports.ID_PREFIXES.user).openapi('UserId');
 exports.SegmentId = buildIdSchema(exports.ID_PREFIXES.segment).openapi('SegmentId');
 exports.CampaignId = buildIdSchema(exports.ID_PREFIXES.campaign).openapi('CampaignId');
 exports.JourneyId = buildIdSchema(exports.ID_PREFIXES.journey).openapi('JourneyId');

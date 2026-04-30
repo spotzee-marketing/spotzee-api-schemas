@@ -1,6 +1,6 @@
 import { z } from './openapi.js';
 export declare const ID_PREFIXES: {
-    readonly contact: "cnt";
+    readonly user: "usr";
     readonly segment: "seg";
     readonly campaign: "cmp";
     readonly journey: "jrn";
@@ -16,7 +16,7 @@ export declare const ID_PREFIXES: {
     readonly request: "req";
 };
 export type IdPrefix = typeof ID_PREFIXES[keyof typeof ID_PREFIXES];
-export declare const ContactId: z.ZodString;
+export declare const UserId: z.ZodString;
 export declare const SegmentId: z.ZodString;
 export declare const CampaignId: z.ZodString;
 export declare const JourneyId: z.ZodString;
@@ -30,7 +30,7 @@ export declare const ApiKeyId: z.ZodString;
 export declare const WebhookEndpointId: z.ZodString;
 export declare const SubscriptionId: z.ZodString;
 export declare const RequestId: z.ZodString;
-export type ContactId = z.infer<typeof ContactId>;
+export type UserId = z.infer<typeof UserId>;
 export type SegmentId = z.infer<typeof SegmentId>;
 export type CampaignId = z.infer<typeof CampaignId>;
 export type JourneyId = z.infer<typeof JourneyId>;

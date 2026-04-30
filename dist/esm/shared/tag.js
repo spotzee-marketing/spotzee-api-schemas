@@ -1,11 +1,11 @@
 import { z } from './openapi.js';
 export const Tag = z.object({
     name: z.string().min(1).max(64).openapi({
-        description: 'Tag name. Used as a stable label across contacts, segments, lists, and templates.',
+        description: 'Tag name. Used as a stable label across users, segments, lists, and templates.',
         example: 'vip',
     }),
 }).openapi('Tag', {
-    description: 'A simple label that can be applied to contacts, segments, lists, and templates.',
+    description: 'A simple label that can be applied to users, segments, lists, and templates.',
 });
 export const TagName = z.string().min(1).max(64).openapi('TagName', {
     description: 'Lowercase, hyphenated label. Stable across resources.',

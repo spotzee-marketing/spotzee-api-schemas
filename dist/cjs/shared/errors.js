@@ -52,7 +52,7 @@ exports.ErrorResponse = openapi_js_1.z.object({
     }),
     message: openapi_js_1.z.string().openapi({
         description: 'Human-readable, en-AU explanation. May include identifiers.',
-        example: 'Contact cnt_01HXY7Z9K8M5J2N4P6Q8R0S1T2 was not found in this project.',
+        example: 'User usr_01HXY7Z9K8M5J2N4P6Q8R0S1T2 was not found in this project.',
     }),
     error: openapi_js_1.z.string().openapi({
         description: 'Legacy human-readable mirror of `message`. Retained while in-product clients migrate; new integrations should read `message`.',

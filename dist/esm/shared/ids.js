@@ -1,6 +1,6 @@
 import { z } from './openapi.js';
 export const ID_PREFIXES = {
-    contact: 'cnt',
+    user: 'usr',
     segment: 'seg',
     campaign: 'cmp',
     journey: 'jrn',
@@ -23,7 +23,7 @@ const buildIdSchema = (prefix, exampleSuffix = '01HXY7Z9K8M5J2N4P6Q8R0S1T2') => 
     description: `Stable, opaque identifier prefixed with \`${prefix}_\`.`,
     example: `${prefix}_${exampleSuffix}`,
 });
-export const ContactId = buildIdSchema(ID_PREFIXES.contact).openapi('ContactId');
+export const UserId = buildIdSchema(ID_PREFIXES.user).openapi('UserId');
 export const SegmentId = buildIdSchema(ID_PREFIXES.segment).openapi('SegmentId');
 export const CampaignId = buildIdSchema(ID_PREFIXES.campaign).openapi('CampaignId');
 export const JourneyId = buildIdSchema(ID_PREFIXES.journey).openapi('JourneyId');
