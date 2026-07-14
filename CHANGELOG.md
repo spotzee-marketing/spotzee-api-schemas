@@ -4,6 +4,12 @@ All notable changes to `@spotzee/api-schemas` are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning is [Semver](https://semver.org/) — breaking schema changes bump major.
 
+## [0.3.0] — 2026-07-14
+
+### Added
+
+- `shared/errors.ts` `ErrorCode`: added `archived_user_conflict` and `user_capacity_exhausted`.
+
 ## [0.2.0] — 2026-04-29
 
 ### Changed (build only — no schema changes)
