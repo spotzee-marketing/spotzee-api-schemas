@@ -3,6 +3,8 @@ export const ErrorCode = z.enum([
     'resource_missing',
     'resource_already_exists',
     'state_conflict',
+    'archived_user_conflict',
+    'user_capacity_exhausted',
     'parameter_missing',
     'parameter_invalid_empty',
     'parameter_invalid_format',

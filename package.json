@@ -38,6 +38,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:fixup": "node scripts/write-dist-package-json.js",
+    "test": "npm run build && node --test test/*.test.js",
     "typecheck": "tsc -p tsconfig.esm.json --noEmit",
     "clean": "rm -rf dist"
   },
