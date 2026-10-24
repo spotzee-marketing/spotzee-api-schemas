@@ -15,7 +15,11 @@ exports.PaginationQuery = openapi_js_1.z.object({
     page: exports.PageDirection.optional().openapi({
         description: 'Direction to walk relative to `cursor`. Defaults to `next` when omitted.',
     }),
-    limit: openapi_js_1.z.coerce.number().int().min(-1).max(100).default(25).openapi({
+    limit: (0, openapi_js_1.integer)(openapi_js_1.z.coerce.number()).min(-1).max(100).default(25).openapi({
+        ...openapi_js_1.nullable,
+        minimum: -1,
+        maximum: 100,
+        default: 25,
         description: 'Maximum results per page. Use `-1` to request all (rate-limited; large pages may be rejected).',
         example: 25,
     }),
@@ -42,7 +46,7 @@ const paginationResponse = (item, name) => openapi_js_1.z.object({
     prevCursor: openapi_js_1.z.string().nullable().openapi({
         description: 'Opaque cursor for the previous page. `null` when on the first page.',
     }),
-    limit: openapi_js_1.z.number().int().openapi({
+    limit: (0, openapi_js_1.integer)(openapi_js_1.z.number()).openapi({
         description: 'Page size used to build this response.',
     }),
 }).openapi(name, {

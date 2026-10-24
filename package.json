@@ -1,6 +1,6 @@
 {
   "name": "@spotzee/api-schemas",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "Shared Zod + OpenAPI schemas for the Spotzee Main API and Extended API.",
   "type": "module",
@@ -43,12 +43,12 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@asteasolutions/zod-to-openapi": "^7.3.0",
-    "zod": "^3.25.0"
+    "@asteasolutions/zod-to-openapi": "^8.0.0",
+    "zod": "^4.6.6"
   },
   "devDependencies": {
-    "@asteasolutions/zod-to-openapi": "^7.3.0",
+    "@asteasolutions/zod-to-openapi": "8.0.0",
     "typescript": "^5.4.0",
-    "zod": "^3.25.76"
+    "zod": "4.6.6"
   }
 }
