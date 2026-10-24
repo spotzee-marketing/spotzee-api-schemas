@@ -362,13 +362,16 @@ exports.CrmActivityCreateSchema = openapi_js_1.z.object({
     channel: openapi_js_1.z.string().max(100).nullable().optional(),
     subject: openapi_js_1.z.string().max(255).nullable().optional(),
     body: openapi_js_1.z.string().nullable().optional(),
-    occurred_at: openapi_js_1.z.string().datetime().nullable().optional().openapi({
+    occurred_at: openapi_js_1.datetime.nullable().optional().openapi({
+        ...openapi_js_1.nullable,
         description: 'When the activity happened. Defaults to now.',
     }),
-    due_at: openapi_js_1.z.string().datetime().nullable().optional().openapi({
+    due_at: openapi_js_1.datetime.nullable().optional().openapi({
+        ...openapi_js_1.nullable,
         description: 'Task due time, when applicable.',
     }),
-    completed_at: openapi_js_1.z.string().datetime().nullable().optional().openapi({
+    completed_at: openapi_js_1.datetime.nullable().optional().openapi({
+        ...openapi_js_1.nullable,
         description: 'Task completion time, when applicable.',
     }),
 }).refine(input => input.contact_id != null || input.company_id != null, {

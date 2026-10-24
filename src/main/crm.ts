@@ -1,4 +1,4 @@
-import { integer, nullable, z } from '../shared/openapi.js'
+import { datetime, integer, nullable, z } from '../shared/openapi.js'
 
 const PageDirection = z.enum(['next', 'prev']).openapi('CrmPageDirection', {
     description: 'Cursor traversal direction. `next` walks forward; `prev` walks backward.',
@@ -386,13 +386,16 @@ export const CrmActivityCreateSchema = z.object({
     channel: z.string().max(100).nullable().optional(),
     subject: z.string().max(255).nullable().optional(),
     body: z.string().nullable().optional(),
-    occurred_at: z.string().datetime().nullable().optional().openapi({
+    occurred_at: datetime.nullable().optional().openapi({
+        ...nullable,
         description: 'When the activity happened. Defaults to now.',
     }),
-    due_at: z.string().datetime().nullable().optional().openapi({
+    due_at: datetime.nullable().optional().openapi({
+        ...nullable,
         description: 'Task due time, when applicable.',
     }),
-    completed_at: z.string().datetime().nullable().optional().openapi({
+    completed_at: datetime.nullable().optional().openapi({
+        ...nullable,
         description: 'Task completion time, when applicable.',
     }),
 }).refine(input => input.contact_id != null || input.company_id != null, {
