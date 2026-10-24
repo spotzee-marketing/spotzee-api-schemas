@@ -1,4 +1,4 @@
-import { z } from './openapi.js';
+import { integer, nullable, z } from './openapi.js';
 export const PageDirection = z.enum(['next', 'prev']).openapi('PageDirection', {
     description: 'Cursor traversal direction. `next` walks forward; `prev` walks backward.',
 });
@@ -12,7 +12,11 @@ export const PaginationQuery = z.object({
     page: PageDirection.optional().openapi({
         description: 'Direction to walk relative to `cursor`. Defaults to `next` when omitted.',
     }),
-    limit: z.coerce.number().int().min(-1).max(100).default(25).openapi({
+    limit: integer(z.coerce.number()).min(-1).max(100).default(25).openapi({
+        ...nullable,
+        minimum: -1,
+        maximum: 100,
+        default: 25,
         description: 'Maximum results per page. Use `-1` to request all (rate-limited; large pages may be rejected).',
         example: 25,
     }),
@@ -39,7 +43,7 @@ export const paginationResponse = (item, name) => z.object({
     prevCursor: z.string().nullable().openapi({
         description: 'Opaque cursor for the previous page. `null` when on the first page.',
     }),
-    limit: z.number().int().openapi({
+    limit: integer(z.number()).openapi({
         description: 'Page size used to build this response.',
     }),
 }).openapi(name, {

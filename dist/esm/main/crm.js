@@ -1,4 +1,4 @@
-import { z } from '../shared/openapi.js';
+import { integer, nullable, z } from '../shared/openapi.js';
 const PageDirection = z.enum(['next', 'prev']).openapi('CrmPageDirection', {
     description: 'Cursor traversal direction. `next` walks forward; `prev` walks backward.',
 });
@@ -12,7 +12,10 @@ const CrmPaginationQuery = z.object({
     page: PageDirection.optional().openapi({
         description: 'Direction to walk relative to `cursor`. Defaults to `next`.',
     }),
-    limit: z.coerce.number().int().min(1).max(100).default(25).openapi({
+    limit: integer(z.coerce.number()).min(1).max(100).default(25).openapi({
+        minimum: 1,
+        maximum: 100,
+        default: 25,
         description: 'Maximum results per page. Maximum is 100.',
         example: 25,
     }),
@@ -53,7 +56,7 @@ export const CrmPropertyOptionSchema = z.object({
     }),
 }).openapi('CrmPropertyOption');
 export const CrmPropertySchema = z.object({
-    id: z.number().int().openapi({
+    id: integer(z.number()).openapi({
         description: 'Numeric CRM property identifier.',
         example: 101,
     }),
@@ -83,7 +86,7 @@ export const CrmPropertySchema = z.object({
     is_required: z.boolean().openapi({
         description: 'True when Spotzee requires a value for this property.',
     }),
-    display_order: z.number().int().openapi({
+    display_order: integer(z.number()).openapi({
         description: 'Display ordering hint.',
         example: 30,
     }),
@@ -102,7 +105,7 @@ export const CrmPropertyListSchema = z.array(CrmPropertySchema).openapi('CrmProp
     description: 'CRM property definitions visible to the public CRM API.',
 });
 export const CrmContactSchema = z.object({
-    id: z.number().int().openapi({
+    id: integer(z.number()).openapi({
         description: 'Numeric CRM contact identifier.',
         example: 1024,
     }),
@@ -122,7 +125,8 @@ export const CrmContactSchema = z.object({
         description: 'Contact phone number.',
         example: '+61 400 123 456',
     }),
-    crm_company_id: z.number().int().nullable().optional().openapi({
+    crm_company_id: integer(z.number()).nullable().optional().openapi({
+        ...nullable,
         description: 'Linked CRM company identifier, when assigned.',
         example: 55,
     }),
@@ -130,15 +134,19 @@ export const CrmContactSchema = z.object({
         description: 'Current CRM pipeline stage key.',
         example: 'qualified',
     }),
-    properties: z.record(z.unknown()).openapi({
+    properties: z.record(z.string(), z.unknown()).openapi({
         additionalProperties: true,
         description: 'Public CRM property values keyed by property key.',
         example: { first_name: 'Jane', qualification_status: 'Qualified' },
     }),
     created_at: z.coerce.date().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Time the contact was created. ISO 8601.',
     }),
     updated_at: z.coerce.date().optional().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Time the contact was last modified. ISO 8601.',
     }),
 }).openapi('CrmContact', {
@@ -148,7 +156,7 @@ export const CrmContactPagedSchema = z.object({
     results: z.array(CrmContactSchema),
     nextCursor: z.string().nullable(),
     prevCursor: z.string().nullable(),
-    limit: z.number().int(),
+    limit: integer(z.number()),
 }).openapi('CrmContacts', {
     description: 'Paginated CRM contacts response.',
 });
@@ -157,27 +165,32 @@ export const CrmContactListQuerySchema = CrmPaginationQuery.extend({
         description: 'Filter contacts by pipeline stage key.',
         example: 'qualified',
     }),
-    crm_company_id: z.coerce.number().int().min(1).optional().openapi({
+    crm_company_id: integer(z.coerce.number()).min(1).optional().openapi({
+        minimum: 1,
         description: 'Filter contacts by linked company identifier.',
         example: 55,
     }),
-    view_id: z.coerce.number().int().min(1).optional().openapi({
+    view_id: integer(z.coerce.number()).min(1).optional().openapi({
+        minimum: 1,
         description: 'Apply a saved CRM contact view.',
         example: 10,
     }),
 }).openapi('CrmContactListQuery');
 export const CrmContactIdParamSchema = z.object({
-    contactId: z.coerce.number().int().min(1).openapi({
+    contactId: integer(z.coerce.number()).min(1).openapi({
+        minimum: 1,
         description: 'Numeric CRM contact identifier.',
         example: 1024,
     }),
 }).openapi('CrmContactIdParam');
 export const CrmContactPropertiesPatchSchema = z.object({
-    crm_company_id: z.number().int().min(1).nullable().optional().openapi({
+    crm_company_id: integer(z.number()).min(1).nullable().optional().openapi({
+        ...nullable,
+        minimum: 1,
         description: 'Company to link, or `null` to unlink.',
         example: 55,
     }),
-    properties: z.record(z.unknown()).optional().openapi({
+    properties: z.record(z.string(), z.unknown()).optional().openapi({
         additionalProperties: true,
         description: 'Public CRM property values to update.',
         example: { qualification_status: 'Qualified' },
@@ -190,7 +203,7 @@ export const CrmContactStagePatchSchema = z.object({
     }),
 }).openapi('CrmContactStagePatch');
 export const CrmCompanySchema = z.object({
-    id: z.number().int().openapi({
+    id: integer(z.number()).openapi({
         description: 'Numeric CRM company identifier.',
         example: 55,
     }),
@@ -202,19 +215,23 @@ export const CrmCompanySchema = z.object({
         description: 'Company domain, when known.',
         example: 'acme.example',
     }),
-    properties: z.record(z.unknown()).openapi({
+    properties: z.record(z.string(), z.unknown()).openapi({
         additionalProperties: true,
         description: 'Public CRM company property values keyed by property key.',
         example: { industry: 'Finance' },
     }),
-    contacts_count: z.number().int().optional().openapi({
+    contacts_count: integer(z.number()).optional().openapi({
         description: 'Number of linked contacts, when included.',
         example: 12,
     }),
     created_at: z.coerce.date().optional().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Time the company was created. ISO 8601.',
     }),
     updated_at: z.coerce.date().optional().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Time the company was last modified. ISO 8601.',
     }),
 }).openapi('CrmCompany', {
@@ -224,13 +241,14 @@ export const CrmCompanyPagedSchema = z.object({
     results: z.array(CrmCompanySchema),
     nextCursor: z.string().nullable(),
     prevCursor: z.string().nullable(),
-    limit: z.number().int(),
+    limit: integer(z.number()),
 }).openapi('CrmCompanies', {
     description: 'Paginated CRM companies response.',
 });
 export const CrmCompanyListQuerySchema = CrmPaginationQuery.openapi('CrmCompanyListQuery');
 export const CrmCompanyIdParamSchema = z.object({
-    companyId: z.coerce.number().int().min(1).openapi({
+    companyId: integer(z.coerce.number()).min(1).openapi({
+        minimum: 1,
         description: 'Numeric CRM company identifier.',
         example: 55,
     }),
@@ -244,7 +262,7 @@ export const CrmCompanyCreateSchema = z.object({
         description: 'Company domain.',
         example: 'acme.example',
     }),
-    properties: z.record(z.unknown()).optional().openapi({
+    properties: z.record(z.string(), z.unknown()).optional().openapi({
         additionalProperties: true,
         description: 'Public CRM company property values.',
         example: { industry: 'Finance' },
@@ -262,15 +280,17 @@ export const CrmActivityTypeSchema = z.enum([
 ]).openapi('CrmActivityType');
 export const CrmActivityDirectionSchema = z.enum(['inbound', 'outbound']).openapi('CrmActivityDirection');
 export const CrmActivitySchema = z.object({
-    id: z.number().int().openapi({
+    id: integer(z.number()).openapi({
         description: 'Numeric CRM activity identifier.',
         example: 5001,
     }),
-    contact_id: z.number().int().nullable().optional().openapi({
+    contact_id: integer(z.number()).nullable().optional().openapi({
+        ...nullable,
         description: 'Linked CRM contact identifier.',
         example: 1024,
     }),
-    company_id: z.number().int().nullable().optional().openapi({
+    company_id: integer(z.number()).nullable().optional().openapi({
+        ...nullable,
         description: 'Linked CRM company identifier.',
         example: 55,
     }),
@@ -280,12 +300,18 @@ export const CrmActivitySchema = z.object({
     subject: z.string().nullable().optional(),
     body: z.string().nullable().optional(),
     occurred_at: z.coerce.date().openapi({
+        type: 'string',
+        ...nullable,
         description: 'When the activity happened. ISO 8601.',
     }),
     due_at: z.coerce.date().nullable().optional().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Task due time, when applicable. ISO 8601.',
     }),
     completed_at: z.coerce.date().nullable().optional().openapi({
+        type: 'string',
+        ...nullable,
         description: 'Task completion time, when applicable. ISO 8601.',
     }),
 }).openapi('CrmActivity', {
@@ -295,16 +321,18 @@ export const CrmActivityPagedSchema = z.object({
     results: z.array(CrmActivitySchema),
     nextCursor: z.string().nullable(),
     prevCursor: z.string().nullable(),
-    limit: z.number().int(),
+    limit: integer(z.number()),
 }).openapi('CrmActivities', {
     description: 'Paginated CRM activities response.',
 });
 export const CrmActivityListQuerySchema = CrmPaginationQuery.extend({
-    contact_id: z.coerce.number().int().min(1).optional().openapi({
+    contact_id: integer(z.coerce.number()).min(1).optional().openapi({
+        minimum: 1,
         description: 'Filter activities by CRM contact identifier.',
         example: 1024,
     }),
-    company_id: z.coerce.number().int().min(1).optional().openapi({
+    company_id: integer(z.coerce.number()).min(1).optional().openapi({
+        minimum: 1,
         description: 'Filter activities by CRM company identifier.',
         example: 55,
     }),
@@ -312,11 +340,15 @@ export const CrmActivityListQuerySchema = CrmPaginationQuery.extend({
     message: 'contact_id or company_id is required.',
 }).openapi('CrmActivityListQuery');
 export const CrmActivityCreateSchema = z.object({
-    contact_id: z.number().int().min(1).nullable().optional().openapi({
+    contact_id: integer(z.number()).min(1).nullable().optional().openapi({
+        ...nullable,
+        minimum: 1,
         description: 'CRM contact to attach the activity to.',
         example: 1024,
     }),
-    company_id: z.number().int().min(1).nullable().optional().openapi({
+    company_id: integer(z.number()).min(1).nullable().optional().openapi({
+        ...nullable,
+        minimum: 1,
         description: 'CRM company to attach the activity to.',
         example: 55,
     }),
@@ -348,7 +380,7 @@ export const CrmPipelineStageSchema = z.object({
         description: 'Human-readable pipeline stage label.',
         example: 'Qualified',
     }),
-    display_order: z.number().int(),
+    display_order: integer(z.number()),
     colour: z.string().nullable().optional().openapi({
         description: 'Accessible stage colour token.',
         example: 'blue',
@@ -362,7 +394,7 @@ export const CrmContactStageMoveResponseSchema = z.object({
     activity: CrmActivitySchema,
 }).openapi('CrmContactStageMoveResponse');
 export const CrmViewSchema = z.object({
-    id: z.number().int(),
+    id: integer(z.number()),
     object_type: CrmObjectTypeSchema,
     name: z.string(),
     is_shared: z.boolean(),

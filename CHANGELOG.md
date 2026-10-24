@@ -4,6 +4,14 @@ All notable changes to `@spotzee/api-schemas` are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning is [Semver](https://semver.org/) — breaking schema changes bump major.
 
+## [0.4.0] — 2026-10-24
+
+### Changed
+
+- Require Zod `^4.6.6` and `@asteasolutions/zod-to-openapi` `^8.0.0`.
+- Preserve existing integer acceptance, property records and generated OpenAPI shapes while using the Zod 4 parser.
+- Check the existing typecheck, build and test commands on pull requests.
+
 ## [0.3.0] — 2026-07-14
 
 ### Added
